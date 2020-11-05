@@ -2,7 +2,7 @@
 import linebot from 'linebot'
 // 引用dotenv機器人套件
 import dotenv from 'dotenv'
-// 引用json
+// 讀取json資料
 import json from './aed資料.js'
 
 const distance = (lat1, lon1, lat2, lon2, unit) => {
@@ -44,23 +44,226 @@ bot.on('message', async event => {
     for (const data of json) {
       const dis = distance(data.地點LAT, data.地點LNG, lat, lng, 'K')
       if (dis <= 0.5) {
-        reply.push(`名稱: ${data.場所名稱} \n
-          地址: ${data.場所地址} \n
-          AED放置地點: ${data.AED放置地點} \n
-          是否全年全天開放大眾使用: ${data.全年全天開放大眾使用} \n
-          開放使用時間:周一至周五起 ${data.周一至周五起}~周一至周五迄${data.周一至周五迄} \n
-          周六起 ${data.周六起}~周六迄${data.周六迄} \n
-          周日起 ${data.周日起}~周六迄${data.周日迄} \n
-          開放時間連絡電話:${data.開放時間緊急連絡電話}`
-        )
+        reply = {
+          type: 'flex',
+          altText: 'Flex',
+          contents: {
+            type: 'carousel',
+            contents: [
+              {
+                type: 'bubble',
+                size: 'micro',
+                hero: {
+                  type: 'image',
+                  url: 'https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip10.jpg',
+                  size: 'full',
+                  aspectMode: 'cover',
+                  aspectRatio: '320:213'
+                },
+                body: {
+                  type: 'box',
+                  layout: 'vertical',
+                  contents: [
+                    {
+                      type: 'text',
+                      text: `${data.場所名稱}`,
+                      weight: 'bold',
+                      size: 'sm',
+                      wrap: true
+                    },
+                    {
+                      type: 'box',
+                      layout: 'baseline',
+                      contents: [
+                        {
+                          type: 'text',
+                          text: `${data.AED放置地點} `,
+                          size: 'xs',
+                          color: '#8c8c8c',
+                          margin: 'md',
+                          flex: 0
+                        }
+                      ]
+                    },
+                    {
+                      type: 'box',
+                      layout: 'vertical',
+                      contents: [
+                        {
+                          type: 'box',
+                          layout: 'baseline',
+                          spacing: 'sm',
+                          contents: [
+                            {
+                              type: 'text',
+                              text: `${data.場所地址}`,
+                              wrap: true,
+                              color: '#8c8c8c',
+                              size: 'xs',
+                              flex: 5
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      type: 'text',
+                      text: `${data.開放時間緊急連絡電話}`,
+                      weight: 'bold',
+                      size: 'sm',
+                      wrap: true
+                    }
+                  ],
+                  spacing: 'sm',
+                  paddingAll: '13px'
+                }
+              },
+              {
+                type: 'bubble',
+                size: 'micro',
+                hero: {
+                  type: 'image',
+                  url: 'https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip11.jpg',
+                  size: 'full',
+                  aspectMode: 'cover',
+                  aspectRatio: '320:213'
+                },
+                body: {
+                  type: 'box',
+                  layout: 'vertical',
+                  contents: [
+                    {
+                      type: 'text',
+                      text: `${data.場所名稱}`,
+                      weight: 'bold',
+                      size: 'sm',
+                      wrap: true
+                    },
+                    {
+                      type: 'box',
+                      layout: 'baseline',
+                      contents: [
+                        {
+                          type: 'text',
+                          text: `${data.AED放置地點} `,
+                          size: 'sm',
+                          color: '#8c8c8c',
+                          margin: 'md',
+                          flex: 0
+                        }
+                      ]
+                    },
+                    {
+                      type: 'box',
+                      layout: 'vertical',
+                      contents: [
+                        {
+                          type: 'box',
+                          layout: 'baseline',
+                          spacing: 'sm',
+                          contents: [
+                            {
+                              type: 'text',
+                              text: `${data.場所地址}`,
+                              wrap: true,
+                              color: '#8c8c8c',
+                              size: 'xs',
+                              flex: 5
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      type: 'text',
+                      text: `${data.開放時間緊急連絡電話}`,
+                      weight: 'bold',
+                      size: 'sm',
+                      wrap: true
+                    }
+                  ],
+                  spacing: 'sm',
+                  paddingAll: '13px'
+                }
+              },
+              {
+                type: 'bubble',
+                size: 'micro',
+                hero: {
+                  type: 'image',
+                  url: 'https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip12.jpg',
+                  size: 'full',
+                  aspectMode: 'cover',
+                  aspectRatio: '320:213'
+                },
+                body: {
+                  type: 'box',
+                  layout: 'vertical',
+                  contents: [{
+                    type: 'text',
+                    text: `${data.場所名稱}`,
+                    weight: 'bold',
+                    size: 'sm',
+                    wrap: true
+                  },
+                  {
+                    type: 'box',
+                    layout: 'baseline',
+                    contents: [
+                      {
+                        type: 'text',
+                        text: `${data.AED放置地點} `,
+                        size: 'xs',
+                        color: '#8c8c8c',
+                        margin: 'md',
+                        flex: 0
+                      }
+                    ]
+                  },
+                  {
+                    type: 'box',
+                    layout: 'vertical',
+                    contents: [
+                      {
+                        type: 'box',
+                        layout: 'baseline',
+                        spacing: 'sm',
+                        contents: [
+                          {
+                            type: 'text',
+                            text: `${data.場所地址}`,
+                            wrap: true,
+                            color: '#8c8c8c',
+                            size: 'xs',
+                            flex: 5
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    type: 'text',
+                    text: `${data.開放時間緊急連絡電話}`,
+                    weight: 'bold',
+                    size: 'sm',
+                    wrap: true
+                  }
+                  ],
+                  spacing: 'sm',
+                  paddingAll: '13px'
+                }
+              }
+            ]
+          }
+        }
       }
     }
 
-    reply = (reply.length === 0) ? '找不到資料' : reply
+    reply = (reply.length === 0) ? '輸入有誤，請重新傳送位置資訊' : reply
     console.log(reply)
     event.reply(reply)
   } catch (error) {
-    event.reply('發現錯誤123')
+    event.reply('發現錯誤')
     console.log(error)
   }
 })
