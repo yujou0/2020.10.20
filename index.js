@@ -44,83 +44,21 @@ bot.on('message', async event => {
     for (const data of json) {
       const dis = distance(data.地點LAT, data.地點LNG, lat, lng, 'K')
       if (dis <= 0.5) {
-        reply.push({
-          type: 'flex',
-          altText: 'Flex',
-          contents: {
-            type: 'carousel',
-            contents: [
-              {
-                type: 'bubble',
-                size: 'micro',
-                hero: {
-                  type: 'image',
-                  url: 'https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip10.jpg',
-                  size: 'full',
-                  aspectMode: 'cover',
-                  aspectRatio: '320:213'
-                },
-                body: {
-                  type: 'box',
-                  layout: 'vertical',
-                  contents: [
-                    {
-                      type: 'text',
-                      text: `${data.場所名稱}`,
-                      weight: 'bold',
-                      size: 'sm',
-                      wrap: true
-                    },
-                    {
-                      type: 'box',
-                      layout: 'baseline',
-                      contents: [
-                        {
-                          type: 'text',
-                          text: `${data.AED放置地點} `,
-                          size: 'xs',
-                          color: '#8c8c8c',
-                          margin: 'md',
-                          flex: 0
-                        }
-                      ]
-                    },
-                    {
-                      type: 'box',
-                      layout: 'vertical',
-                      contents: [
-                        {
-                          type: 'box',
-                          layout: 'baseline',
-                          spacing: 'sm',
-                          contents: [
-                            {
-                              type: 'text',
-                              text: `${data.場所地址}`,
-                              wrap: true,
-                              color: '#8c8c8c',
-                              size: 'xs',
-                              flex: 5
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      type: 'text',
-                      text: `${data.開放時間緊急連絡電話}`,
-                      weight: 'bold',
-                      size: 'sm',
-                      wrap: true
-                    }
-                  ],
-                  spacing: 'sm',
-                  paddingAll: '13px'
-                }
-              }
-            ]
+        reply.push(
+          {
+            type: 'location',
+            title: `${data.場所名稱}`,
+            address: ` ${data.場所地址} `,
+            latitude: data.地點LAT,
+            longitude: data.地點LNG
+          },
+          {
+            type: 'text',
+            text: '連絡電話' + `${data.開放時間緊急連絡電話}`,
+            weight: 'bold',
+            size: 'xl'
           }
-        })
+        )
       }
     }
 
